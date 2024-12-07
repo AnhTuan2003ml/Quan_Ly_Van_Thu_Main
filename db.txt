@@ -1,0 +1,44 @@
+CREATE TABLE "log" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"link_vb_den"	TEXT,
+	"id_vb_den"	INTEGER,
+	"id_vb_di"	INTEGER,
+	"link_vb_di"	TEXT,
+	"thoi_gian"	TEXT NOT NULL,
+	"id_user"	INTEGER,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE "users" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"ten"	TEXT NOT NULL,
+	"sdt"	TEXT NOT NULL UNIQUE,
+	"diachi"	TEXT,
+	"email"	TEXT NOT NULL,
+	"pw"	TEXT NOT NULL UNIQUE,
+	"chucvu"	TEXT NOT NULL,
+	"is_admin"	INTEGER NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE "vb_den" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"tenvb"	TEXT NOT NULL,
+	"noidung"	TEXT NOT NULL,
+	"ngayden"	TEXT NOT NULL,
+	"so"	INTEGER NOT NULL UNIQUE,
+	"han"	TEXT,
+	"nguoiphutrach"	INTEGER NOT NULL,
+	"link"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE "vb_di" (
+	"id"	INTEGER NOT NULL UNIQUE,
+	"ten"	TEXT NOT NULL,
+	"han"	TEXT NOT NULL,
+	"ngaydi"	TEXT NOT NULL,
+	"so"	INTEGER NOT NULL UNIQUE,
+	"nguoithuchien"	INTEGER NOT NULL UNIQUE,
+	"lienket"	INTEGER,
+	"noidung"	TEXT NOT NULL,
+	"link"	TEXT,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);

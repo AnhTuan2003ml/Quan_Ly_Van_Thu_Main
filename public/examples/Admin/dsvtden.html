@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Sổ tay văn thư</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- CSS Files -->
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../assets/css/light-bootstrap-dashboard.css?v=2.0.0" rel="stylesheet" />
+    <link href="../../assets/css/demo.css" rel="stylesheet" />
+    <style>
+        .custom-form {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .modal-dialog-centered {
+            max-width: 800px;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        /* Đảm bảo rằng các input 'Số Đến' và 'Ngày Đến' hiển thị trên một dòng */
+        .form-group.row .col-sm-4 {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        /* Điều chỉnh khoảng cách giữa label và input */
+        .form-group.row label {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="sidebar" data-image="../../assets/img/sidebar-5.jpg">
+            <div class="sidebar-wrapper">
+                <div class="logo">
+                    <a href="#" class="simple-text">Creative Tim</a>
+                </div>
+                <ul class="nav">
+                    <li>
+                        <a class="nav-link" href="./dashboard.html">
+                            <i class="nc-icon nc-chart-pie-35"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./user.html">
+                            <i class="nc-icon nc-circle-09"></i>
+                            <p>User Profile</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./dsvtden.html">
+                            <i class="nc-icon nc-notes"></i>
+                            <p>Danh sách văn thư đến</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./dsvtdi.html">
+                            <i class="nc-icon nc-paper-2"></i>
+                            <p>Danh sách văn thư đi</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./ds_thanhvien.html">
+                            <i class="nc-icon nc-atom"></i>
+                            <p>Danh sách thành viên</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="./thong_bao.html">
+                            <i class="nc-icon nc-bell-55"></i>
+                            <p>Thông báo</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="#">
+                            <i class="nc-icon nc-pin-3"></i>
+                            <p>Maps</p>
+                        </a>
+                    </li>
+                    <li class="nav-item active active-pro">
+                        <a class="nav-link active" href="upgrade.html">
+                            <i class="nc-icon nc-alien-33"></i>
+                            <p>Upgrade to PRO</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="main-panel">
+            <nav class="navbar navbar-expand-lg" color-on-scroll="500">
+                <div class="container-fluid">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                        <span class="navbar-toggler-bar burger-lines"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#pablo">
+                                    <span class="no-icon">Account</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/api/auth/logout">
+                                    <span class="no-icon">Log out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="content">
+                <div class="container mt-5">
+                    <h2>Danh sách văn bản đến</h2>
+
+                    <!-- Add and Search Controls -->
+                    <div class="d-flex align-items-center mb-3">
+                        <!-- Nút Thêm Văn Bản -->
+                        <button class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#documentModal" style="margin-top: 15px;"
+                            onclick="clearForm()">Thêm Văn Bản</button>
+                    
+                        <!-- Ô Tìm Kiếm -->
+                        <input type="text" id="searchInput" class="form-control mr-2"
+                            placeholder="Nhập số, cụm từ nội dung, hoặc nguồn phát hành..." style="width: 300px; margin-top: 25px;">
+                    
+                        <!-- Ngày Bắt Đầu -->
+                        <div class="form-group mr-2 d-flex flex-column">
+                            <label for="startDateInput" class="col-form-label">Ngày Bắt Đầu</label>
+                            <input type="date" id="startDateInput" class="form-control" style="width: 150px;">
+                        </div>
+                    
+                        <!-- Ngày Kết Thúc -->
+                        <div class="form-group mr-2 d-flex flex-column">
+                            <label for="endDateInput" class="col-form-label">Ngày Kết Thúc</label>
+                            <input type="date" id="endDateInput" class="form-control" style="width: 150px;">
+                        </div>
+                    
+                        <!-- Nút Tìm Kiếm -->
+                        <button class="btn btn-secondary btn-sm mr-2" onclick="searchDocuments()">Tìm Kiếm</button>
+                    
+                        <!-- Nút Xuất File CSV -->
+                        <button class="btn btn-success btn-sm" onclick="exportCSV()">Xuất File CSV</button>
+                    </div>
+
+                    <!-- Document Table -->
+                    <table class="table table-bordered" id="documentTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Số Văn Bản</th>
+                                <th>Nội Dung Trích Yếu</th>
+                                <th>Ngày Phát Hành</th>
+                                <th>Người Phụ Trách</th>
+                                <th>Người Kính chuyển</th>
+                                <th>Hạn Theo Văn Bản</th>
+                                <th>Hạn Theo Chỉ Đạo</th>
+                                <th>Link Văn Bản</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Document data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Document Modal -->
+            <div class="modal fade" id="documentModal" tabindex="-1" role="dialog" aria-labelledby="documentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="documentModalLabel">Edit Document</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="documentForm" class="custom-form">
+                            <input type="hidden" id="documentId">
+                            <!-- Form Group for Số Văn Bản and Ngày Phát Hành -->
+                            <div class="form-group row">
+                                <label for="sovanban" class="col-sm-2 col-form-label">Số Văn Bản:</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="sovanban" required>
+                                </div>
+                                <label for="ngayphathanh" class="col-sm-2 col-form-label">Ngày Phát Hành:</label>
+                                <div class="col-sm-3">
+                                    <input type="date" class="form-control" id="ngayphathanh" required>
+                                </div>
+                            </div>
+
+                            <!-- Form Group for Nguồn Phát Hành -->
+                            <div class="form-group row" style=".form-group label {
+                                            font-weight: bold; /* Làm đậm chữ label */
+                                            margin-bottom: 5px; /* Khoảng cách giữa label và input */
+                                        }
+
+                                        .form-group input {
+                                            margin-top: 5px; /* Khoảng cách giữa input và các phần tử phía trên */
+                                        }
+                                        ">
+                                <label class="col-sm-2 col-form-label">Nguồn Phát Hành:</label>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Trong Trường:</label>
+                                        <input type="text" class="form-control" id="nguonTrongTruong"
+                                            placeholder="Trong Trường">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Ngoài Trường:</label>
+                                        <input type="text" class="form-control" id="nguonNgoaiTruong"
+                                            placeholder="Ngoài Trường">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Form Group for Số Đến and Ngày Đến -->
+                            <div class="form-group row">
+                                <label for="soDen" class="col-sm-2 col-form-label">Số Đến:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="soDen">
+                                </div>
+
+                                <label for="ngayden" class="col-sm-2 col-form-label">Ngày Đến:</label>
+                                <div class="col-sm-4">
+                                    <input type="date" class="form-control" id="ngayden">
+                                </div>
+                            </div>
+
+
+                            <!-- Form Group for Nội Dung Trích Yếu -->
+                            <div class="form-group row">
+                                <label for="noidung" class="col-sm-2 col-form-label">Nội Dung Trích Yếu:</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="noidung" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Form Group for Chỉ Đạo -->
+                            <div class="form-group row">
+                                <label for="chidao" class="col-sm-2 col-form-label">Chỉ Đạo:</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="chidao" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Form Group for Cán Bộ Xử Lý and Ngày Xử Lý -->
+                            <div class="form-group row">
+                                <label for="nguoiphutrach" class="col-sm-2 col-form-label">Cán Bộ Xử Lý:</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="nguoiphutrach">
+                                        <option value="">Chọn cán bộ</option>
+                                        <!-- Populate options here -->
+                                    </select>
+                                </div>
+                                <label for="ngayxuly" class="col-sm-2 col-form-label">Ngày nhận văn bản:</label>
+                                <div class="col-sm-4">
+                                    <input type="date" class="form-control" id="ngayxuly">
+                                </div>
+                            </div>
+                            <!-- Form Group for Thời Hạn Xử Lý Văn Bản -->
+                            <div class="form-group row">
+                                <label for="thoihan" class="col-sm-2 col-form-label">Thời Hạn Xử Lý Văn Bản:</label>
+
+                                <label for="theovanban" class="col-sm-2 col-form-label">Theo Văn Bản:</label>
+                                <div class="col-sm-3">
+                                    <input type="date" class="form-control" id="theovanban">
+                                </div>
+
+                                <label for="theochidao" class="col-sm-2 col-form-label">Theo Chỉ Đạo:</label>
+                                <div class="col-sm-3">
+                                    <input type="date" class="form-control" id="theochidao">
+                                </div>
+                            </div>
+
+                            <div class="form-group row" id="kinhChuyenRow" style="display: none;">
+                                <label for="kinhchuyen"  class="col-sm-2 col-form-label" >Kính
+                                    chuyển</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="kinhchuyen">
+                                        <option value="">Chọn cán bộ</option>
+                                        <!-- Populate options here -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="documentFile">Tải lên văn bản:</label>
+                                <input type="file" class="form-control" id="documentFile" name="documentFile">
+                                <small id="fileNameDisplay" class="form-text text-muted"></small>
+                                <!-- To display the file name -->
+                                <input type="hidden" id="oldFilePath" name="oldFilePath" value="">
+                                <!-- Đường dẫn cũ -->
+                            </div>
+                            <!-- Submit Button -->
+                            <!-- Nút Chỉnh sửa và Lưu/Hủy -->
+                            <div class="form-group row">
+                                <div class="col-sm-12 text-right">
+                                    <button type="button" id="editButton" class="btn btn-primary">Chỉnh sửa</button>
+                                    <button type="submit" id="saveButton" class="btn btn-success d-none">Lưu</button>
+                                    <button type="button" id="cancelButton" class="btn btn-secondary d-none">Hủy</button>
+                                </div>
+                            </div>
+                            <!-- <button type="submit" class="btn btn-primary">Lưu Văn Bản</button> -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="formContainer" tabindex="-1" role="dialog" aria-labelledby="documentModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="documentModalLabel">Văn Bản Đi</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form id="documentFormdi" class="custom-form">
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="sovanban_di" class="col-sm-4 col-form-label">Sinh Từ :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="thongtin" required readonly>
+                                    </div>
+                                </div>
+                                <!-- Form Group for Số Văn Bản and Ngày Phát Hành -->
+                                <div class="form-group row">
+                                    <label for="sovanban_di" class="col-sm-4 col-form-label">Số Văn Bản:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="sovanban_di" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ngayphathanh_di" class="col-sm-4 col-form-label">Ngày Phát Hành:</label>
+                                    <div class="col-sm-8">
+                                        <input type="date" class="form-control" id="ngayphathanh_di" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="donvitiepnhan" class="col-sm-4 col-form-label">Đơn Vị Tiếp Nhận:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="donvitiepnhan">
+                                    </div>
+                                </div>
+
+                                <!-- Form Group for Nội Dung Trích Yếu -->
+                                <div class="form-group row">
+                                    <label for="noidung_di" class="col-sm-4 col-form-label">Nội Dung Trích Yếu:</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" id="noidung_di" rows="3"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Cán Bộ Soạn Thảo and Lãnh Đạo Phòng Kí -->
+                                <div class="form-group row">
+                                    <label for="canbosoanthao" class="col-sm-4 col-form-label">Cán Bộ Soạn Thảo:</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="canbosoanthao">
+                                            <option value="">Chọn cán bộ</option>
+                                            <!-- Populate options here -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lanhdaophongki" class="col-sm-4 col-form-label">Lãnh Đạo Phòng
+                                        Kí:</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control" id="lanhdaophongki">
+                                            <option value="">Chọn lãnh đạo phòng kí</option>
+                                            <!-- Populate options here -->
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Ban Giám Hiệu Duyệt -->
+                                <div class="form-group row">
+                                    <label for="BGHduyet" class="col-sm-4 col-form-label">Ban Giám Hiệu Duyệt:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="BGHduyet">
+                                    </div>
+                                </div>
+
+                                <!-- Tải lên văn bản -->
+                                <div class="form-group">
+                                    <label for="documentFile_di">Tải lên văn bản:</label>
+                                    <input type="file" class="form-control" id="documentFile_di" name="oldFilePath">
+                                    <small id="fileNameDisplay_di" class="form-text text-muted">Để hiển thị tên tệp</small>
+                                </div>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                <button type="submit" class="btn btn-primary">Lưu Văn Bản</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container-fluid">
+            <p class="copyright text-center">
+            </p>
+        </div>
+    </footer>
+
+    <!-- Core JavaScript Files -->
+    <script src="../../assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+    <script src="../../assets/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="../../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <!-- Custom JavaScript -->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            clearForm();
+            fetchDocuments(); // Gọi hàm lấy danh sách văn bản (nếu có).
+            fetchUsers(-1, -1); // Gọi hàm lấy danh sách người dùng.
+            // Event listener for form submission
+            document.getElementById('documentFormdi').onsubmit = function (event) {
+                event.preventDefault();  // Prevent the default form submission
+                taovanbandi(event);         // Trigger saveDocument function
+            };
+
+            document.getElementById('documentForm').onsubmit = function (event) {
+                event.preventDefault();  // Prevent the default form submission
+                setReadOnly(true);
+                document.getElementById('editButton').classList.remove('d-none');
+                document.getElementById('saveButton').classList.add('d-none');
+                document.getElementById('cancelButton').classList.add('d-none');
+                saveDocument(event);         // Trigger saveDocument function
+            };
+
+            const editButton = document.getElementById('editButton');
+            const saveButton = document.getElementById('saveButton');
+            const cancelButton = document.getElementById('cancelButton');
+            const formElements = document.querySelectorAll('#documentForm input, #documentForm textarea, #documentForm select');
+
+            // Đặt tất cả các thẻ ở chế độ đọc
+            const setReadOnly = (isReadOnly) => {
+                formElements.forEach((el) => {
+                    if (isReadOnly) {
+                        el.setAttribute('readonly', 'true');
+                        el.setAttribute('disabled', 'true'); // Dùng cho select
+                    } else {
+                        el.removeAttribute('readonly');
+                        el.removeAttribute('disabled'); // Dùng cho select
+                    }
+                });
+            };
+
+            // Ban đầu ở chế độ đọc
+            setReadOnly(true);
+
+            // Chuyển sang chế độ chỉnh sửa
+            editButton.addEventListener('click', () => {
+                setReadOnly(false);
+                editButton.classList.add('d-none');
+                saveButton.classList.remove('d-none');
+                cancelButton.classList.remove('d-none');
+            });
+
+            // Hủy chỉnh sửa, quay lại chế độ đọc
+            cancelButton.addEventListener('click', () => {
+                setReadOnly(true);
+                editButton.classList.remove('d-none');
+                saveButton.classList.add('d-none');
+                cancelButton.classList.add('d-none');
+            });
+        });
+
+        // Hàm hiển thị form với thông tin văn bản
+        function toggleForm(id_vbden, soDen, ngayden) {
+            document.getElementById("documentId").value = id_vbden;
+            document.getElementById("thongtin").value = `Văn bản đến số: ${soDen} Ngày: ${ngayden}`;
+            $('#formContainer').modal('show');
+        }
+
+        // Hàm lấy danh sách người dùng
+        function fetchUsers(nguoiphutrach_id, kinhchuyen_id) {
+            fetch('/api/users/basic')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Lỗi khi lấy danh sách người dùng');
+                    }
+                    return response.json();
+                })
+                .then(users => {
+                    populateDropdowns(users, nguoiphutrach_id, kinhchuyen_id);
+                })
+                .catch(error => {
+                    console.error('Error fetching users:', error);
+                    alert('Không thể tải danh sách người dùng. Vui lòng thử lại sau.');
+                });
+        }
+
+        // Hàm cập nhật danh sách vào các dropdown
+        function populateDropdowns(users, nguoiphutrach_id, kinhchuyen_id) {
+            const dropdowns = {
+                nguoiphutrach: document.getElementById('nguoiphutrach'),
+                kinhchuyen: document.getElementById('kinhchuyen'),
+                canbosoanthao: document.getElementById('canbosoanthao'),
+                lanhdaophongki: document.getElementById('lanhdaophongki')
+            };
+
+            // Hàm thêm tùy chọn mặc định
+            const addDefaultOption = (dropdown, text) => {
+                dropdown.innerHTML = ''; // Xóa tất cả tùy chọn trước đó
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = text;
+                dropdown.appendChild(option);
+            };
+
+            // Thêm các tùy chọn mặc định
+            addDefaultOption(dropdowns.nguoiphutrach, 'Chọn người phụ trách');
+            addDefaultOption(dropdowns.kinhchuyen, 'Chọn người kinh chuyển');
+            addDefaultOption(dropdowns.canbosoanthao, 'Chọn cán bộ soạn thảo');
+            addDefaultOption(dropdowns.lanhdaophongki, 'Chọn lãnh đạo phòng kí');
+
+            // Thêm người dùng vào dropdown
+            users.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.id;
+                option.textContent = user.name;
+
+                dropdowns.nguoiphutrach.appendChild(option.cloneNode(true));
+                dropdowns.kinhchuyen.appendChild(option.cloneNode(true));
+                dropdowns.canbosoanthao.appendChild(option.cloneNode(true));
+                dropdowns.lanhdaophongki.appendChild(option.cloneNode(true));
+            });
+
+            // Gán giá trị được chọn nếu có
+            if (nguoiphutrach_id) dropdowns.nguoiphutrach.value = nguoiphutrach_id;
+            if (kinhchuyen_id) dropdowns.kinhchuyen.value = kinhchuyen_id;
+        }
+
+
+        // Fetch Documents and display them in a table
+        function fetchDocuments() {
+            fetch('/api/vb_den')
+                .then(response => response.json())
+                .then(data => {
+                    const documentTableBody = document.querySelector('#documentTable tbody');
+                    documentTableBody.innerHTML = ''; // Clear previous entries
+
+                    // Fetch users for responsible person name mapping
+                    fetch('/api/users/basic')
+                        .then(response => response.json())
+                        .then(users => {
+                            const usersMap = {}; // Create a map of user ID to user name
+                            users.forEach(user => {
+                                usersMap[user.id] = user.name;
+                            });
+
+                            // Process each document
+                            data.forEach((doc, index) => {
+                                const row = document.createElement('tr');
+                                const nguoiphutrachName = usersMap[doc.nguoiphutrach] || 'Không tìm thấy'; // Get user name
+                                const nguoikinhchuyen = usersMap[doc.nguoikinhgui] || '';
+
+                                row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${doc.sovanban}</td>
+                            <td style="width: 1000px; text-align: center;">${doc.noidung}</td>
+                            <td>${doc.ngayphathanh}</td>
+                             <td>${nguoiphutrachName}</td>
+                            <td>${nguoikinhchuyen}</td>
+                            <td>${doc.hantheovanban}</td>
+                            <td>${doc.hantheochidao || 'Chưa có hạn'}</td>
+                            <td><a href="${doc.link}" target="_blank">Link</a></td>
+                            <td>${doc.status}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm" 
+                                    onclick="editDocument('${doc.id}', '${doc.sovanban}','${doc.ngayphathanh}', '${doc.soDen}', '${doc.ngayden}', '${doc.noidung}', '${doc.chidao}', '${doc.ngayxuly}', '${doc.hantheovanban}', '${doc.hantheochidao}', '${doc.nguonphathanh[0].type}','${doc.nguonphathanh[0].address}', '${doc.nguoiphutrach}','${doc.nguoikinhgui}', '${doc.link}')">
+                                    Chi Tiết
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteDocument(${doc.id})">Delete</button>
+                                <button class="btn btn-success" onclick="toggleForm('${doc.id}','${doc.soDen}','${doc.ngayden}')">Tạo Văn Bản Đi</button>
+                            </td>
+                        `;
+
+                                documentTableBody.appendChild(row);
+                            });
+                        })
+                        .catch(error => console.error('Error fetching users:', error));
+                })
+                .catch(error => console.error('Error fetching documents:', error));
+        }
+
+
+        function searchDocuments() {
+            const searchInput = document.getElementById('searchInput').value.trim().toLowerCase();
+            const startDateInput = document.getElementById('startDateInput').value;
+            const endDateInput = document.getElementById('endDateInput').value;
+
+            const table = document.getElementById('documentTable');
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const cells = row.getElementsByTagName('td');
+
+                // Lấy giá trị từ các cột cần tìm kiếm
+                const soVanBan = cells[1].textContent.toLowerCase(); // Cột số văn bản
+                const noiDung = cells[2].textContent.toLowerCase();  // Cột nội dung
+                const nguonPhatHanh = cells[4].textContent.toLowerCase(); // Cột nguồn phát hành
+                const ngayPhatHanh = cells[3].textContent;           // Cột ngày phát hành
+
+                // Kiểm tra khớp chuỗi tìm kiếm
+                const matchesSearch =
+                    soVanBan.includes(searchInput) ||
+                    noiDung.includes(searchInput) ||
+                    nguonPhatHanh.includes(searchInput);
+
+                // Kiểm tra khớp ngày
+                const ngayPhatHanhDate = new Date(ngayPhatHanh);
+                const startDate = startDateInput ? new Date(startDateInput) : null;
+                const endDate = endDateInput ? new Date(endDateInput) : null;
+
+                const matchesDate =
+                    (!startDate || ngayPhatHanhDate >= startDate) &&
+                    (!endDate || ngayPhatHanhDate <= endDate);
+
+                // Hiển thị hoặc ẩn dòng
+                if (matchesSearch && matchesDate) {
+                    row.style.display = ''; // Hiển thị dòng
+                } else {
+                    row.style.display = 'none'; // Ẩn dòng
+                }
+            }
+        }
+
+        function saveDocument(event) {
+            event.preventDefault();
+            const formData = new FormData();
+
+            // Lấy tất cả các giá trị từ form và thêm vào FormData
+            formData.append('theochidao', document.getElementById('theochidao').value);
+            formData.append('ngayxuly', document.getElementById('ngayxuly').value);
+            formData.append('chidao', document.getElementById('chidao').value);
+            formData.append('ngayphathanh', document.getElementById('ngayphathanh').value);
+            formData.append('sovanban', document.getElementById('sovanban').value);
+            formData.append('noidung', document.getElementById('noidung').value);
+            formData.append('ngayden', document.getElementById('ngayden').value);
+            formData.append('soDen', document.getElementById('soDen').value);
+            formData.append('hantheovanban', document.getElementById('theovanban').value);
+            formData.append('nguoiphutrach', document.getElementById('nguoiphutrach').value);
+            formData.append('kinhchuyen', document.getElementById('kinhchuyen').value);
+
+            const label = document.querySelector('label[for="kinhchuyen"]');
+            if (label) {
+                label.style.display = 'block';  // Chuyển từ 'none' sang 'block' để hiển thị
+            }
+
+            // Xử lý Nguồn Phát Hành
+            const nguonTrongTruong = document.getElementById("nguonTrongTruong").value.trim();
+            const nguonNgoaiTruong = document.getElementById("nguonNgoaiTruong").value.trim();
+            const nguonPhatHanhArray = [];
+
+            if (nguonTrongTruong) {
+                nguonPhatHanhArray.push({ type: "Trong Trường", address: nguonTrongTruong });
+            }
+            if (nguonNgoaiTruong) {
+                nguonPhatHanhArray.push({ type: "Ngoài Trường", address: nguonNgoaiTruong });
+            }
+
+            formData.append('nguonphathanh', JSON.stringify(nguonPhatHanhArray));
+
+            // Kiểm tra và xử lý tệp tải lên
+            const fileInput = document.getElementById('documentFile');
+            const oldFilePathInput = document.getElementById('oldFilePath'); // Đường dẫn tệp cũ nếu có
+
+            if (fileInput.files.length > 0) {
+                // Nếu có tệp mới, thêm vào FormData
+                formData.append('documentFile', fileInput.files[0]);
+            } else if (oldFilePathInput.value) {
+                // Nếu không có tệp mới, thêm đường dẫn tệp cũ
+                formData.append('oldFilePath', oldFilePathInput.value);
+            }
+
+            // Kiểm tra xem là cập nhật hay thêm mới
+            const documentId = document.getElementById('documentId').value;
+            const isUpdate = !!documentId; // Nếu có documentId, tức là đang cập nhật
+
+            const url = isUpdate ? `/api/vb_den/${documentId}` : '/api/vb_den';
+            const method = isUpdate ? 'PUT' : 'POST';
+
+            // Gửi dữ liệu tới server
+            fetch(url, {
+                method: method,
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Thông báo thành công
+                        alert(isUpdate ? 'Văn bản đã được cập nhật thành công!' : 'Văn bản đã được thêm thành công!');
+                        $('#documentModal').modal('hide'); // Đóng modal
+                        fetchDocuments(); // Làm mới danh sách văn bản
+                        // Ban đầu ở chế độ đọc
+                        setReadOnly(true);
+                    } else {
+                        // Thông báo thất bại
+                        alert(isUpdate ? 'Cập nhật văn bản thất bại.' : 'Thêm văn bản thất bại.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                });
+        }
+        function exportCSV() {
+            // Gửi yêu cầu đến API để xuất file CSV
+            fetch('/api/vb_den/getfile', {
+                method: 'GET',
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.blob();
+                    }
+                    throw new Error('Không thể tải file CSV');
+                })
+                .then(blob => {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'documents.csv'; // Tên file khi tải về
+                    link.click();
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+        }
+
+        function editDocument(id, sovanban, ngayphathanh, soDen, ngayden, noidung, chidao, ngayxuly, hantheovanban, hantheochidao, nguonphathanh, diachiphathanh, nguoiphutrach_id, nguoikinhgui, link) {
+            document.getElementById("documentId").value = id;
+            document.getElementById("sovanban").value = sovanban;
+            document.getElementById("ngayphathanh").value = ngayphathanh;
+            document.getElementById("soDen").value = soDen;
+            document.getElementById("ngayden").value = ngayden;
+            document.getElementById("noidung").value = noidung;
+            document.getElementById("chidao").value = chidao;
+            document.getElementById("ngayxuly").value = ngayxuly;
+            document.getElementById("theovanban").value = hantheovanban;
+            document.getElementById("theochidao").value = hantheochidao;
+            if (nguonphathanh === "Trong Trường") {
+                document.getElementById("nguonTrongTruong").value = diachiphathanh;
+                document.getElementById("nguonNgoaiTruong").value = '';
+            }
+            if (nguonphathanh === "Ngoài Trường") {
+                document.getElementById("nguonTrongTruong").value = '';
+                document.getElementById("nguonNgoaiTruong").value = diachiphathanh;
+            }
+
+            // Hiển thị combobox Kính Chuyển khi chỉnh sửa
+            const kinhChuyenRow = document.getElementById("kinhChuyenRow");
+            
+            const kinhChuyenSelect = document.getElementById("kinhchuyen");
+
+            kinhChuyenRow.style.display = "flex"; // Hiển thị hàng kính chuyển
+            kinhChuyenSelect.value = ''; // Thiết lập giá trị mặc định cho kính chuyển
+
+            // Fetch users and populate the responsible person dropdown
+            fetchUsers(nguoiphutrach_id, nguoikinhgui);
+
+            // Display the file name if available
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            if (link) {
+                fileNameDisplay.textContent = `Tên văn bản đã tải lên: ${link.split('/').pop()}`;
+            } else {
+                fileNameDisplay.textContent = ''; // Clear the file name if not present
+            }
+
+            // Set old file path
+            document.getElementById('oldFilePath').value = link || '';
+
+            // Show the modal
+            $('#documentModal').modal('show');
+            // Gọi hàm chuyển sang chế độ readonly và ẩn các nút "Lưu" và "Hủy", hiển thị nút "Chỉnh sửa"
+        }
+        // Delete document
+        function deleteDocument(id) {
+            if (confirm('Bạn có chắc chắn muốn xóa văn bản này?')) {
+                fetch(`/api/vb_den/${id}`, { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert('Xóa văn bản thành công!');
+                            fetchDocuments(); // Refresh the documents list
+                        } else {
+                            alert('Xóa văn bản thất bại.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                        alert('Đã có lỗi xảy ra.');
+                    });
+                clearForm();
+            }
+        }
+
+        function clearForm() {
+            document.getElementById("documentId").value = '';
+            document.getElementById("sovanban").value = '';
+            document.getElementById("ngayphathanh").value = '';
+            document.getElementById("soDen").value = '';
+            document.getElementById("ngayden").value = '';
+            document.getElementById("noidung").value = '';
+            document.getElementById("chidao").value = '';
+
+            document.getElementById("theovanban").value = '';
+            document.getElementById("theochidao").value = '';
+            document.getElementById("nguonTrongTruong").value = '';
+            document.getElementById("nguonNgoaiTruong").value = '';
+            document.getElementById("documentFile").value = '';
+            document.getElementById("fileNameDisplay").value = '';
+            document.getElementById("oldFilePath").value = '';
+            document.getElementById("documentFile_di").value = '';
+            document.getElementById("fileNameDisplay_di").value = '';
+
+            fetchUsers(-1, -1);
+            // Lấy ngày hiện tại
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Đảm bảo tháng có 2 chữ số
+            const day = today.getDate().toString().padStart(2, '0'); // Đảm bảo ngày có 2 chữ số
+
+            // Định dạng ngày theo kiểu "YYYY-MM-DD"
+            const currentDate = `${year}-${month}-${day}`;
+
+            // Gán ngày hiện tại vào ô input
+            document.getElementById("ngayxuly").value = currentDate;
+
+            // Đặt trường ngày nhận văn bản ở chế độ không thể chỉnh sửa
+            document.getElementById("ngayxuly").setAttribute("readonly", true);
+
+            // Ẩn form "Kính chuyển" khi thêm mới
+            const kinhChuyenRow = document.getElementById("kinhChuyenRow");
+            const kinhChuyenSelect = document.getElementById("kinhchuyen");
+
+            kinhChuyenRow.style.display = "none"; // Ẩn hàng kính chuyển
+            kinhChuyenSelect.value = ''; // Reset giá trị chọn kính chuyển
+
+            document.getElementById('ngayphathanh_di').value = currentDate;
+            document.getElementById('ngayphathanh_di').setAttribute("readonly", true);
+
+            // Gọi lại hàm fetchUsers để tải lại danh sách người dùng (với tham số -1)
+            document.getElementById("formContainer").style.display = 'none'; // Ẩn form container nếu cần
+        }
+
+        function taovanbandi(event) {
+            event.preventDefault();
+                const formData = new FormData();
+
+            // Các giá trị từ form
+            const sovanban_di = document.getElementById('sovanban_di').value;
+            const ngayphathanh_di = document.getElementById('ngayphathanh_di').value;
+            const donvitiepnhan = document.getElementById('donvitiepnhan').value;
+            const noidung_di = document.getElementById('noidung_di').value;
+            const nguoiphutrach = document.getElementById('canbosoanthao').value;
+            const lanhdaophongki = document.getElementById('lanhdaophongki').value;
+            const BGHduyet = document.getElementById('BGHduyet').value;
+            const lienket =  document.getElementById("documentId").value;
+
+            // Thêm dữ liệu vào FormData
+            formData.append('sovanban_di', sovanban_di);
+            formData.append('ngayphathanh_di', ngayphathanh_di);
+            formData.append('donvitiepnhan', donvitiepnhan);
+            formData.append('noidung_di', noidung_di);
+            formData.append('nguoiphutrach', nguoiphutrach);
+            formData.append('lanhdaoki', lanhdaophongki);
+            formData.append('BGHduyet', BGHduyet);
+            formData.append('lienket', lienket);
+
+            // Kiểm tra và xử lý tệp tải lên
+            const fileInput = document.getElementById('documentFile_di');
+
+            if (fileInput.files.length > 0) {
+                formData.append('documentFile', fileInput.files[0]);
+                // Hiển thị tên tệp đã chọn
+                const fileNameDisplay = document.getElementById('fileNameDisplay_di');
+                fileNameDisplay.textContent = `Tệp đã chọn: ${fileInput.files[0].name}`;
+            } else {
+                formData.append('oldFilePath', null);
+            }
+
+            try {
+                const url = '/api/vb_di';
+                const method =  'POST';
+
+                fetch(url, {
+                    method: method,
+                    body: formData
+                }).then(() => {
+                    $('#formContainer').modal('hide');
+                    fetchDocuments();
+                })
+                    .catch(error => alert('Có lỗi xảy ra: ' + error.message));
+
+            } catch (error) {
+                console.error('Có lỗi xảy ra:', error);
+            }
+            }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Nguyen Van X",
+    "phone": "0123456789",
+    "address": "Hà Nội",
+    "email": "thmtech.t07@gmail.com",
+    "password": "33992ff827f6125aea05e62180ee382773379fb7f92b1ef19f5da950a3cae28e",
+    "role": "Giám đốc",
+    "status": 1
+  },
+  {
+    "id": 2,
+    "name": "Nguyen Van B",
+    "phone": "0123456789",
+    "address": "Hà Nội",
+    "email": "tuankkffdnc@gmail.com",
+    "password": "33992ff827f6125aea05e62180ee382773379fb7f92b1ef19f5da950a3cae28e",
+    "role": "Giám đốc",
+    "status": 3
+  },
+  {
+    "id": 3,
+    "name": "Tran Thi C",
+    "phone": "0912345678",
+    "address": "Đà Nẵng",
+    "email": "tuankkffdnx@gmail.com",
+    "password": "33992ff827f6125aea05e62180ee382773379fb7f92b1ef19f5da950a3cae28e",
+    "role": "Quản lý",
+    "status": 3
+  },
+  {
+    "id": 4,
+    "name": "Pham Minh D",
+    "phone": "0934567890",
+    "address": "Hải Phòng",
+    "email": "phamminhd@example.com",
+    "password": "password101",
+    "role": "Nhân viên",
+    "status": 3
+  },
+  {
+    "id": 5,
+    "name": "Hoang Minh E",
+    "phone": "0945678901",
+    "address": "Nha Trang",
+    "email": "hoangmine@example.com",
+    "password": "password112",
+    "role": "Giám sát",
+    "status": 2
+  },
+  {
+    "id": 6,
+    "name": "Nguyen Thi F",
+    "phone": "0956789012",
+    "address": "Hà Nội",
+    "email": "nguyenthif@example.com",
+    "password": "password113",
+    "role": "Nhân viên",
+    "status": 3
+  },
+  {
+    "id": 7,
+    "name": "Le Thi G",
+    "phone": "0967890123",
+    "address": "TP. HCM",
+    "email": "lethig@example.com",
+    "password": "password114",
+    "role": "Giám sát",
+    "status": 1
+  },
+  {
+    "id": 8,
+    "name": "Phan Thi H",
+    "phone": "0978901234",
+    "address": "Cần Thơ",
+    "email": "phanthih@example.com",
+    "password": "password115",
+    "role": "Giám đốc",
+    "status": 1
+  },
+  {
+    "id": 9,
+    "name": "Mai Thi I",
+    "phone": "0989012345",
+    "address": "Vinh",
+    "email": "maithiI@example.com",
+    "password": "password116",
+    "role": "Nhân viên",
+    "status": 3
+  },
+  {
+    "id": 10,
+    "name": "Nguyen Thi J",
+    "phone": "0990123456",
+    "address": "Đà Lạt",
+    "email": "nguyenthij@example.com",
+    "password": "password117",
+    "role": "Quản lý",
+    "status": 2
+  },
+  {
+    "id": 11,
+    "name": "Le Thi B",
+    "phone": "0987654321",
+    "address": "Hồ Chí Minh",
+    "email": "lethib@example.com",
+    "password": "0b376badc25761426f83de0698341d055acaa5af9faccf6c7b3486ac45b7aa1e",
+    "role": "Nhân viên",
+    "status": 2
+  },
+  {
+    "id": 12,
+    "name": "Nguyen Van B",
+    "phone": "0123456788",
+    "address": "Hà Nội",
+    "email": "tuankkffdncs@gmail.com",
+    "password": "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92",
+    "role": "Giám đốc",
+    "status": 3
+  }
+]
