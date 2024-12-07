@@ -18,7 +18,7 @@
     ],
     "nguoiphutrach": 3,
     "nguoikinhgui": 3,
-    "link": "../../doc/demo.txt",
+    "link": "",
     "status": "uncheck"
   },
   {
@@ -129,28 +129,6 @@
     "nguoiphutrach": 2,
     "nguoikinhgui": null,
     "link": "../../doc/null_5",
-    "status": "uncheck"
-  },
-  {
-    "id": 7,
-    "sovanban": "P03/37",
-    "ngayphathanh": "2024-12-20",
-    "soDen": 456,
-    "ngayden": null,
-    "noidung": "Anh Tuấn",
-    "chidao": "Anh Tuấn",
-    "ngayxuly": "2024-12-05",
-    "hantheovanban": "2024-12-22",
-    "hantheochidao": null,
-    "nguonphathanh": [
-      {
-        "type": "Ngoài Trường",
-        "address": "HD-005"
-      }
-    ],
-    "nguoiphutrach": 2,
-    "nguoikinhgui": null,
-    "link": null,
     "status": "uncheck"
   }
 ]

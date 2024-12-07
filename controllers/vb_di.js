@@ -1,4 +1,3 @@
-
 import { existsSync, unlinkSync } from 'fs';
 import path from 'path';
 import { getEmailById } from './users.js';
@@ -61,11 +60,11 @@ export const Get_vb_di = async (req, res) => {
 export const Put_vb_di = (req, res) => {
     const documentId = parseInt(req.params.id);
     console.log(req.body);
-    const { sovanban_di, ngayphathanh_di, donvitiepnhan, noidung_di, nguoiphutrach,lanhdaoki, BGHduyet,lienket,oldFilePath } = req.body;
+    const { sovanban_di, ngayphathanh_di, donvitiepnhan, noidung_di, nguoiphutrach, lanhdaoki, BGHduyet, lienket, oldFilePath } = req.body;
     const documentFile = req.file; // Tệp mới nếu có
     // Kiểm tra nếu không có tệp mới, sử dụng tệp cũ
     let filePath_doc = documentFile
-        ? `../../doc/${path.basename(documentFile.filename)}`  // Nếu có tệp mới, lấy tên tệp mới
+        ? `../../doc/${path.basename(documentFile.filename)}`  // Sửa lại đường dẫn
         : oldFilePath || null;  // Nếu không có tệp mới, lấy đường dẫn cũ nếu có
 
     // Kiểm tra xem có tệp không
@@ -86,7 +85,7 @@ export const Put_vb_di = (req, res) => {
                 // Kiểm tra xem tên mới có bị trùng lặp không
                 while (data.some(doc => doc.link === newFilePath)) {
                     counter++;
-                    newFilePath = `../../doc/${baseName}_${counter}${ext}`;  // Nếu trùng, thêm hậu tố để đổi tên tệp
+                    newFilePath = `../doc/${baseName}_${counter}${ext}`;  // Nếu trùng, thêm hậu tố để đổi tên tệp
                 }
 
                 // Cập nhật lại đường dẫn tệp

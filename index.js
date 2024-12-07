@@ -21,7 +21,7 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Cấu hình middleware để phục vụ các file tĩnh
 app.use(express.static(path.join(__dirname, 'public'))); // Phục vụ các file tĩnh từ thư mục 'public'
-app.use('/doc', express.static(path.join(__dirname, 'doc'))); // Phục vụ các tài liệu từ thư mục 'doc'
+app.use('/doc/', express.static(path.join(__dirname, 'doc'))); // Phục vụ các tài liệu từ thư mục 'doc'
 
 
 // Cấu hình middleware để xử lý body dữ liệu và session

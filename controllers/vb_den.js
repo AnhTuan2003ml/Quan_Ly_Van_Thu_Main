@@ -87,33 +87,40 @@ export const Put_vb_den = (req, res) => {
     console.log(req.body);
     const { sovanban, ngayphathanh, soDen, ngayden, noidung, chidao, ngayxuly, hantheovanban, hantheochidao, nguonphathanh, nguoiphutrach, kinhchuyen, oldFilePath } = req.body;
     const documentFile = req.file; // Tệp mới nếu có
-
     // Kiểm tra nếu không có tệp mới, sử dụng tệp cũ
-    let filePath_doc = documentFile ? `../../doc/${path.basename(documentFile.filename)}` : oldFilePath || null;
-    const data = readJSONFile(filePath);
+    let filePath_doc = documentFile
+        ? `../../doc/${path.basename(documentFile.filename)}`  // Sửa lại đường dẫn
+        : oldFilePath || null;  // Nếu không có tệp mới, lấy đường dẫn cũ nếu có
 
-    // Kiểm tra sự trùng lặp đường dẫn với các văn bản khác
+    // Kiểm tra xem có tệp không
     if (filePath_doc) {
-        const existingDocument = data.find(doc => doc.link === filePath_doc);
+        const data = readJSONFile(filePath);  // Đọc dữ liệu từ file JSON
+
+        const existingDocument = data.find(doc => doc.link === filePath_doc);  // Kiểm tra nếu tệp đã tồn tại trong cơ sở dữ liệu
 
         if (existingDocument) {
-            if (parseInt(existingDocument.id) !== documentId) {
-                const ext = path.extname(filePath_doc);
-                const baseName = path.basename(filePath_doc, ext);
-                let counter = 1;
-                let newFilePath = `../../doc/${baseName}_${counter}${ext}`;
+            // Nếu tệp đã tồn tại, nhưng là tệp khác (không phải tệp hiện tại)
+            if (existingDocument.id !== documentId) {
+                const ext = path.extname(filePath_doc);  // Lấy phần mở rộng của tệp
+                const baseName = path.basename(filePath_doc, ext);  // Lấy tên gốc của tệp (không bao gồm phần mở rộng)
 
+                let counter = 1;
+                let newFilePath = `../../doc/${baseName}_${counter}${ext}`;  // Đặt tên mới cho tệp
+
+                // Kiểm tra xem tên mới có bị trùng lặp không
                 while (data.some(doc => doc.link === newFilePath)) {
                     counter++;
-                    newFilePath = `../../doc/${baseName}_${counter}${ext}`;
+                    newFilePath = `../../doc/${baseName}_${counter}${ext}`;  // Nếu trùng, thêm hậu tố để đổi tên tệp
                 }
 
+                // Cập nhật lại đường dẫn tệp
                 filePath_doc = newFilePath;
                 console.log(`Tên tệp mới: ${filePath_doc}`);
             }
+            // Nếu là tệp hiện tại (id giống nhau), không thay đổi tên
         }
+        console.log(`Tên tệp : ${filePath_doc}`);
     }
-    console.log(filePath_doc);
 
     // Tìm thông tin văn bản cũ
     readJSONFileID(filePath, parseInt(documentId))
@@ -202,34 +209,39 @@ export const Put_vb_den = (req, res) => {
 
 
 export const Post_vb_den = (req,res) => {
-    const { sovanban, ngayphathanh, soDen, ngayden, noidung, chidao, ngayxuly, hantheovanban, hantheochidao, nguonphathanh, nguoiphutrach, kinhchuyen } = req.body;
+    const { sovanban, ngayphathanh, soDen, ngayden, noidung, chidao, ngayxuly, hantheovanban, hantheochidao, nguonphathanh, nguoiphutrach, kinhchuyen ,oldFilePath} = req.body;
     const documentFile = req.file; // Tệp mới nếu có
     // Kiểm tra nếu không có tệp mới, sử dụng tệp cũ
-    let filePath_doc = documentFile ? `../../doc/${path.basename(documentFile.filename)}` : null;
-    const data = readJSONFile(filePath);
-    // Kiểm tra trùng lặp file
+    let filePath_doc = documentFile
+        ? `../../doc/${path.basename(documentFile.filename)}`  // Sửa lại đường dẫn
+        : oldFilePath || null;  // Nếu không có tệp mới, lấy đường dẫn cũ nếu có
+
+    // Kiểm tra xem có tệp không
     if (filePath_doc) {
-        const existingDocument = data.find(doc => doc.link === filePath_doc);
+        const data = readJSONFile(filePath);  // Đọc dữ liệu từ file JSON
+
+        const existingDocument = data.find(doc => doc.link === filePath_doc);  // Kiểm tra nếu tệp đã tồn tại trong cơ sở dữ liệu
 
         if (existingDocument) {
-            // Nếu trùng với văn bản khác, thay đổi tên tệp
-            if (existingDocument.id) {
-                const ext = path.extname(filePath_doc);
-                const baseName = path.basename(filePath_doc, ext);
-                let counter = 1;
-                let newFilePath = `../../doc/${baseName}_${counter}${ext}`;
+                const ext = path.extname(filePath_doc);  // Lấy phần mở rộng của tệp
+                const baseName = path.basename(filePath_doc, ext);  // Lấy tên gốc của tệp (không bao gồm phần mở rộng)
 
+                let counter = 1;
+                let newFilePath = `../../doc/${baseName}_${counter}${ext}`;  // Đặt tên mới cho tệp
+
+                // Kiểm tra xem tên mới có bị trùng lặp không
                 while (data.some(doc => doc.link === newFilePath)) {
                     counter++;
-                    newFilePath = `../../doc/${baseName}_${counter}${ext}`;
+                    newFilePath = `../../doc/${baseName}_${counter}${ext}`;  // Nếu trùng, thêm hậu tố để đổi tên tệp
                 }
 
+                // Cập nhật lại đường dẫn tệp
                 filePath_doc = newFilePath;
                 console.log(`Tên tệp mới: ${filePath_doc}`);
             }
-            // Nếu trùng với chính văn bản đó, không thay đổi tên file, chỉ ghi đè
-        }
+        console.log(`Tên tệp : ${filePath_doc}`);
     }
+
     let token_new;
     const newEmail = getEmailById(nguoiphutrach);
     // console.log(newDocument);
